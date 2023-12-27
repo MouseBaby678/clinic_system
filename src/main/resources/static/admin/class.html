@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>首页 - 光年(Light Year Admin)后台管理系统模板</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
+    <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
+    <meta name="author" content="yinqi">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <!--对话框-->
+    <link rel="stylesheet" href="js/jconfirm/jquery-confirm.min.css">
+</head>
+
+<body data-theme="dark">
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <!--左侧导航-->
+        <aside class="lyear-layout-sidebar">
+
+            <!-- logo -->
+            <div id="logo" class="sidebar-header">
+                <a href="index.html"><img src="images/logo-sidebar.png" title="LightYear" alt="LightYear" /></a>
+            </div>
+            <div class="lyear-layout-sidebar-scroll">
+
+                <nav class="sidebar-main">
+                    <ul class="nav nav-drawer">
+                        <li class="nav-item active"> <a href="index.html"><i class="mdi mdi-home"></i> 后台首页</a> </li>
+                        <li class="nav-item nav-item-has-subnav">
+                            <a href="javascript:void(0)"><i class="mdi mdi-account-circle"></i> 学生管理</a>
+                            <ul class="nav nav-subnav">
+                                <li> <a href="admin/student.html">学生列表</a> </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-item-has-subnav">
+                            <a href="javascript:void(0)"><i class="mdi mdi-format-align-justify"></i> 班级管理</a>
+                            <ul class="nav nav-subnav">
+                                <li> <a href="admin/class.html">班级列表</a> </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <p class="copyright">Copyright &copy; 2019. <a target="_blank" href="http://lyear.itshubao.com">IT书包</a> All rights reserved.</p>
+                </div>
+            </div>
+
+        </aside>
+        <!--End 左侧导航-->
+
+        <!--头部信息-->
+        <header class="lyear-layout-header">
+
+            <nav class="navbar navbar-default">
+                <div class="topbar">
+
+                    <div class="topbar-left">
+                        <div class="lyear-aside-toggler">
+                            <span class="lyear-toggler-bar"></span>
+                            <span class="lyear-toggler-bar"></span>
+                            <span class="lyear-toggler-bar"></span>
+                        </div>
+                        <span class="navbar-page-title"> 后台首页 </span>
+                    </div>
+
+                    <ul class="topbar-right">
+                        <li class="dropdown dropdown-profile">
+                            <a href="javascript:void(0)" data-toggle="dropdown">
+                                <span><span id="userInfo"></span> <span class="caret"></span></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a> </li>
+                                <li> <a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
+                                <li> <a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a></li>
+                                <li class="divider"></li>
+                                <li> <a href="javascript:void(0);" id="logoutLink"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+
+        </header>
+        <!--End 头部信息-->
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-toolbar clearfix">
+                                <div class="toolbar-btn-action">
+                                    <button class="btn btn-primary m-r-5" onclick="showAddModal()"><i class="mdi mdi-plus"></i> 新增</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive" id="all_class_div">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+
+<!-- 添加模态框开始 -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加班级</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm" class="form-horizontal" action="lyear_forms_elements.html" method="post" onsubmit="return false;">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="cnameAdd">班级名称</label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="text" id="cnameAdd" name="cname" placeholder="请输入班级名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="caddrAdd">班级位置</label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="text" id="caddrAdd" name="caddr" placeholder="请输入班级位置">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="addCls()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加模态框结束 -->
+
+<!-- 修改模态框开始 -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改班级</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm" class="form-horizontal" action="lyear_forms_elements.html" method="post" onsubmit="return false;">
+                    <input type="hidden" id="idUpdate" />
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="cnameUpdate">班级名称</label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="text" id="cnameUpdate" name="cname" placeholder="请输入班级名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="caddrUpdate">班级位置</label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="text" id="caddrUpdate" name="caddr" placeholder="请输入班级位置">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="updateClass()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改模态框结束 -->
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+<!--消息提示-->
+<script type="text/javascript" src="js/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="js/lightyear.js"></script>
+<script type="text/javascript" src="js/template-web.js"></script>
+<!--对话框-->
+<script src="js/jconfirm/jquery-confirm.min.js"></script>
+<!-- 定义art-templete的模板 id: 模板的名字 -->
+<script type="text/html" id="all_class">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>班级名称</th>
+            <th>班级位置</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- data被遍历的集合 -->
+        {{each data}}
+        <tr>
+            <!-- $value集合中的元素 - 表格中的一行数据 -->
+            <th scope="row">{{$value.id}}</th>
+            <td>{{$value.cname}}</td>
+            <td>{{$value.caddr}}</td>
+            <td>
+                <button type="button" class="btn btn-info btn-xs" onclick="showUpdateModal('{{$value.id}}')">修改</button>
+                <button type="button" class="btn btn-danger btn-xs" onclick="deleteClassById('{{$value.id}}')">删除</button>
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</script>
+<script>
+    //修改班级
+    function updateClass() {
+        $.ajax({
+            url: 'admin/cls',
+            type: 'PUT',
+            data: {id: $("#idUpdate").val(), cname: $("#cnameUpdate").val(), caddr: $("#caddrUpdate").val()},
+            dataType: 'JSON',
+            success: function (resp) {
+                if(resp.code == 10000) {
+                    lightyear.notify(resp.msg, 'success', 2000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                    //隐藏模态框
+                    $("#updateModal").modal("hide");
+                    //重新刷新表格
+                    selectAllClass();
+                } else {
+                    lightyear.notify(resp.msg, 'danger', 2000, 'mdi mdi-emoticon-sad', 'top', 'center');
+                }
+            }
+        })
+    }
+
+    //弹出修改班级的模态框
+    function showUpdateModal(id) {
+        //根据ID查询当前班级的所有信息
+        $.ajax({
+            url: `admin/cls/${id}`,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (resp) {
+                $("#idUpdate").val(resp.data.id);
+                $("#cnameUpdate").val(resp.data.cname);
+                $("#caddrUpdate").val(resp.data.caddr);
+                $("#updateModal").modal("show");
+            }
+        })
+    }
+
+    //添加班级
+    function addCls() {
+        $.ajax({
+            url: 'admin/cls',
+            type: 'POST',
+            data: {cname: $("#cnameAdd").val(), caddr: $("#caddrAdd").val()},
+            dataType: 'JSON',
+            success: function (resp) {
+                if(resp.code == 10000) {
+                    lightyear.notify(resp.msg, 'success', 2000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                    //隐藏模态框
+                    $("#addModal").modal("hide");
+                    //重新刷新表格
+                    selectAllClass();
+                } else {
+                    lightyear.notify(resp.msg, 'danger', 2000, 'mdi mdi-emoticon-sad', 'top', 'center');
+                }
+            }
+        })
+    }
+
+    //显示添加模态框的方法
+    function showAddModal() {
+        $("#addModal").modal("show");
+    }
+
+    //删除班级
+    function deleteClassById(id) {
+        $.alert({
+            title: '删除提示',
+            content: '您确认要删除吗?',
+            buttons: {
+                confirm: {
+                    text: '确认',
+                    btnClass: 'btn-primary',
+                    action: function(){ //单击确认之后的操作
+                        //发送ajax请求实现删除
+                        $.ajax({
+                            url: `admin/cls/${id}`,
+                            type: 'DELETE',
+                            dataType: 'JSON',
+                            success: function (resp) {
+                                //弹出成功/失败消息 - 重新刷新表格
+                                if(resp.code == 10000) {
+                                    lightyear.notify(resp.msg, 'success', 2000, 'mdi mdi-emoticon-happy', 'top', 'center');
+                                    //重新刷新表格
+                                    selectAllClass();
+                                } else {
+                                    lightyear.notify(resp.msg, 'danger', 2000, 'mdi mdi-emoticon-sad', 'top', 'center');
+                                }
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    text: '取消'
+                }
+            }
+        });
+    }
+
+    //获取所有的班级
+    function selectAllClass() {
+        $.ajax({
+            url: 'admin/cls',
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (resp) {
+                // console.log(resp);
+                //resp.data是返回的数据，将服务器返回的数据在模板中渲染
+                let html = template('all_class', {data: resp.data});
+                //将渲染完成的数据挂载在页面上
+                $('#all_class_div').html(html);
+            }
+        });
+    }
+
+
+    $("#logoutLink").click(function () {
+        //发送ajax请求完成注销操作
+        $.ajax({
+            url: 'logout',
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (resp) {
+                //提示消息，实现页面跳转
+                lightyear.notify(resp.msg, 'success', 2000, 'mdi mdi-emoticon-happy', 'top', 'center', "login.html");
+            }
+        })
+    });
+
+    //页面加载时发送Ajax请求
+    $(function () {
+        //获取用户信息，并在头部设置
+        $.ajax({
+            url: 'getInfo',
+            type: 'GET',
+            dataType: "JSON",
+            success: function (resp) {
+                $("#userInfo").text(resp.data);
+            }
+        });
+
+        //获取所有的班级
+        selectAllClass();
+    })
+</script>
+</body>
+</html>
