@@ -33,15 +33,15 @@
                     <ul class="nav nav-drawer">
                         <li class="nav-item active"> <a href="index.html"><i class="mdi mdi-home"></i> 后台首页</a> </li>
                         <li class="nav-item nav-item-has-subnav">
-                            <a href="javascript:void(0)"><i class="mdi mdi-account-circle"></i> 学生管理</a>
+                            <a href="javascript:void(0)"><i class="mdi mdi-account-circle"></i> 医生管理</a>
                             <ul class="nav nav-subnav">
-                                <li> <a href="admin/student.html">学生列表</a> </li>
+                                <li> <a href="admin/student.html">医生列表</a> </li>
                             </ul>
                         </li>
                         <li class="nav-item nav-item-has-subnav">
-                            <a href="javascript:void(0)"><i class="mdi mdi-format-align-justify"></i> 班级管理</a>
+                            <a href="javascript:void(0)"><i class="mdi mdi-format-align-justify"></i> 药品管理</a>
                             <ul class="nav nav-subnav">
-                                <li> <a href="admin/class.html">班级列表</a> </li>
+                                <li> <a href="admin/class.html">药品列表</a> </li>
                             </ul>
                         </li>
                     </ul>
@@ -122,20 +122,20 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">添加班级</h4>
+                <h4 class="modal-title" id="myModalLabel">添加药品</h4>
             </div>
             <div class="modal-body">
                 <form id="addForm" class="form-horizontal" action="lyear_forms_elements.html" method="post" onsubmit="return false;">
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="cnameAdd">班级名称</label>
+                        <label class="col-md-3 control-label" for="cnameAdd">药品名称</label>
                         <div class="col-md-7">
-                            <input class="form-control" type="text" id="cnameAdd" name="cname" placeholder="请输入班级名称">
+                            <input class="form-control" type="text" id="cnameAdd" name="cname" placeholder="请输入药品名称">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="caddrAdd">班级位置</label>
+                        <label class="col-md-3 control-label" for="caddrAdd">药品价格</label>
                         <div class="col-md-7">
-                            <input class="form-control" type="text" id="caddrAdd" name="caddr" placeholder="请输入班级位置">
+                            <input class="form-control" type="text" id="caddrAdd" name="caddr" placeholder="请输入药品价格">
                         </div>
                     </div>
                 </form>
@@ -155,21 +155,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">修改班级</h4>
+                <h4 class="modal-title">修改药品</h4>
             </div>
             <div class="modal-body">
                 <form id="updateForm" class="form-horizontal" action="lyear_forms_elements.html" method="post" onsubmit="return false;">
                     <input type="hidden" id="idUpdate" />
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="cnameUpdate">班级名称</label>
+                        <label class="col-md-3 control-label" for="cnameUpdate">药品名称</label>
                         <div class="col-md-7">
-                            <input class="form-control" type="text" id="cnameUpdate" name="cname" placeholder="请输入班级名称">
+                            <input class="form-control" type="text" id="cnameUpdate" name="cname" placeholder="请输入药品名称">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="caddrUpdate">班级位置</label>
+                        <label class="col-md-3 control-label" for="caddrUpdate">药品价格</label>
                         <div class="col-md-7">
-                            <input class="form-control" type="text" id="caddrUpdate" name="caddr" placeholder="请输入班级位置">
+                            <input class="form-control" type="text" id="caddrUpdate" name="caddr" placeholder="请输入药品价格">
                         </div>
                     </div>
                 </form>
@@ -199,8 +199,8 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>班级名称</th>
-            <th>班级位置</th>
+            <th>药品名称</th>
+            <th>药品价格</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -209,9 +209,9 @@
         {{each data}}
         <tr>
             <!-- $value集合中的元素 - 表格中的一行数据 -->
-            <th scope="row">{{$value.id}}</th>
-            <td>{{$value.cname}}</td>
-            <td>{{$value.caddr}}</td>
+            <th scope="row">{{$value.medicine_id}}</th>
+            <td>{{$value.medicine_name}}</td>
+            <td>{{$value.medicine_price}}</td>
             <td>
                 <button type="button" class="btn btn-info btn-xs" onclick="showUpdateModal('{{$value.id}}')">修改</button>
                 <button type="button" class="btn btn-danger btn-xs" onclick="deleteClassById('{{$value.id}}')">删除</button>
@@ -363,7 +363,7 @@
         });
 
         //获取所有的班级
-        selectAllClass();
+        selectAll();
     })
 </script>
 </body>
