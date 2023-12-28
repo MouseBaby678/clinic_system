@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>登录页面 - 光年(Light Year Admin)后台管理系统模板</title>
+<title>登录页面 - 个人诊所管理系统</title>
 <link rel="icon" href="favicon.ico" type="image/ico">
 <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
 <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
@@ -62,15 +62,15 @@
   <div class="lyear-login">
     <div class="login-center">
       <div class="login-header text-center">
-        <a href="index.html"> <img alt="light year admin" src="images/logo-sidebar.png"> </a>
+        个人诊所管理系统
       </div>
       <form action="#!" method="post">
         <div class="form-group has-feedback feedback-left">
-          <input type="text" placeholder="请输入您的用户名" class="form-control" name="manager_name" id="manager_name" />
+          <input type="text" placeholder="请输入您的用户名" class="form-control" name="user_name" id="user_name" />
           <span class="mdi mdi-account form-control-feedback" aria-hidden="true"></span>
         </div>
         <div class="form-group has-feedback feedback-left">
-          <input type="password" placeholder="请输入密码" class="form-control" id="manager_password" name="manager_password" />
+          <input type="password" placeholder="请输入密码" class="form-control" id="user_password" name="user_password" />
           <span class="mdi mdi-lock form-control-feedback" aria-hidden="true"></span>
         </div>
         <div class="form-group has-feedback feedback-left row">
@@ -88,12 +88,15 @@
           </label>
         </div>
         <div class="form-group">
-          <button class="btn btn-block btn-primary" type="button" id="loginBtn">立即登录</button>
+          <button class="btn btn-block btn-primary" type="button" id="loginBtn">管理员登录</button>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-block btn-primary" type="button" id="ChangeBtn">医生登录</button>
         </div>
       </form>
       <hr>
       <footer class="col-sm-12 text-center">
-        <p class="m-b-0">Copyright © 2019 <a href="http://lyear.itshubao.com">IT书包</a>. All right reserved</p>
+<!--        <p class="m-b-0">Copyright © 2019 <a href="http://lyear.itshubao.com">IT书包</a>. All right reserved</p>-->
       </footer>
     </div>
   </div>
@@ -108,12 +111,12 @@
    $.ajax({
      url:'login',
      type:'POST',
-     data:{manager_name:$("#manager_name").val(),manager_password:$("#manager_password").val(),captchaInput:$("#captchaInput").val()},
+     data:{manager_name:$("#user_name").val(),manager_password:$("#user_password").val(),captchaInput:$("#captchaInput").val()},
      dataType:'JSON',
      success: function (resp){
        lightyear.loading('hide')
        if (resp.code == 10000) {
-         lightyear.notify(resp.msg,'success',2000,'mdi mdi-emoticon-happy', 'top', 'center' , "admin/index.html");
+         lightyear.notify(resp.msg,'success',2000,'mdi mdi-emoticon-happy', 'top', 'center' , "manager/index.html");
 
        }else {
          lightyear.notify(resp.msg,'danger',2000,'mdi mdi-emoticon-sad', 'top', 'center' );
@@ -124,7 +127,27 @@
    })
 
  })
+ $("#ChangeBtn").click(function () {
+   lightyear.loading('show');
+   $.ajax({
+     url:'doclogin',
+     type:'POST',
+     data:{doctor_name:$("#user_name").val(),doctor_password:$("#user_password").val(),captchaInput:$("#captchaInput").val()},
+     dataType:'JSON',
+     success: function (resp){
+       lightyear.loading('hide')
+       if (resp.code == 10000) {
+         lightyear.notify(resp.msg,'success',2000,'mdi mdi-emoticon-happy', 'top', 'center' , "doctor/index.html");
 
+       }else {
+         lightyear.notify(resp.msg,'danger',2000,'mdi mdi-emoticon-sad', 'top', 'center' );
+       }
+       //ajax success 回调
+
+     }
+   })
+
+ })
 </script>
 <script src="js/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="js/lightyear.js"></script>

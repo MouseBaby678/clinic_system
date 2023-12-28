@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qlu.mapper.DoctorMapper">
+    <select id="selectByUsernameAndPassword" resultType="com.qlu.bean.Doctor">
+        SELECT * FROM `doctor` WHERE `doctor_name`=#{doctor_name} AND `doctor_password`=#{doctor_password}
+    </select>
+</mapper>
