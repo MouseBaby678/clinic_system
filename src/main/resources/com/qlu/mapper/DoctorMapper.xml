@@ -4,4 +4,10 @@
     <select id="selectByUsernameAndPassword" resultType="com.qlu.bean.Doctor">
         SELECT * FROM `doctor` WHERE `doctor_name`=#{doctor_name} AND `doctor_password`=#{doctor_password}
     </select>
+    <select id="selectById" resultType="com.qlu.bean.Doctor">
+        SELECT * FROM `doctor` WHERE `doctor_id`=#{doctor_id}
+    </select>
+    <select id="selectAll" resultType="com.qlu.bean.Doctor">
+        SELECT * FROM `doctor`
+    </select>
 </mapper>

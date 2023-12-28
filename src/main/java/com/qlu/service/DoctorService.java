@@ -1,10 +1,12 @@
 package com.qlu.service;
 
 import com.qlu.bean.Doctor;
-import com.qlu.bean.Manager;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+@Service
 public interface DoctorService {
-    Doctor login(String doctor_name, String doctor_password);
+    Doctor selectById(Integer id);
 
-
+    List<Doctor> selectAll();
 }
