@@ -25,23 +25,23 @@
 
             <!-- logo -->
             <div id="logo" class="sidebar-header">
-                <a href="index.html"><img src="images/logo-sidebar.png" title="LightYear" alt="LightYear" /></a>
+                <a href="manager/index.html"><img src="images/logo-sidebar.png" title="LightYear" alt="LightYear" /></a>
             </div>
             <div class="lyear-layout-sidebar-scroll">
 
                 <nav class="sidebar-main">
                     <ul class="nav nav-drawer">
-                        <li class="nav-item active"> <a href="index.html"><i class="mdi mdi-home"></i> 后台首页</a> </li>
+                        <li class="nav-item active"> <a href="manager/index.html"><i class="mdi mdi-home"></i> 后台首页</a> </li>
                         <li class="nav-item nav-item-has-subnav">
                             <a href="javascript:void(0)"><i class="mdi mdi-account-circle"></i> 医生管理</a>
                             <ul class="nav nav-subnav">
-                                <li> <a href="admin/student.html">医生列表</a> </li>
+                                <li> <a href="manager/doctor.html">医生列表</a> </li>
                             </ul>
                         </li>
                         <li class="nav-item nav-item-has-subnav">
                             <a href="javascript:void(0)"><i class="mdi mdi-format-align-justify"></i> 药品管理</a>
                             <ul class="nav nav-subnav">
-                                <li> <a href="admin/class.html">药品列表</a> </li>
+                                <li> <a href="manager/medicine.html">药品列表</a> </li>
                             </ul>
                         </li>
                     </ul>
@@ -122,27 +122,27 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">添加药品</h4>
+                <h4 class="modal-title" id="myModalLabel">添加医生</h4>
             </div>
             <div class="modal-body">
                 <form id="addForm" class="form-horizontal" action="lyear_forms_elements.html" method="post" onsubmit="return false;">
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="cnameAdd">药品名称</label>
+                        <label class="col-md-3 control-label" for="doctor_nameAdd">姓名</label>
                         <div class="col-md-7">
-                            <input class="form-control" type="text" id="cnameAdd" name="cname" placeholder="请输入药品名称">
+                            <input class="form-control" type="text" id="doctor_nameAdd" name="doctor_name" placeholder="请输入医生姓名">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="caddrAdd">药品价格</label>
+                        <label class="col-md-3 control-label" for="doctor_passwordAdd">密码</label>
                         <div class="col-md-7">
-                            <input class="form-control" type="text" id="caddrAdd" name="caddr" placeholder="请输入药品价格">
+                            <input class="form-control" type="password" id="doctor_passwordAdd" name="doctor_password" placeholder="请输入医生密码">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" onclick="addCls()">确认</button>
+                <button type="button" class="btn btn-primary" onclick="addDoctor()">确认</button>
             </div>
         </div>
     </div>
@@ -155,28 +155,34 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">修改药品</h4>
+                <h4 class="modal-title">修改医生</h4>
             </div>
             <div class="modal-body">
                 <form id="updateForm" class="form-horizontal" action="lyear_forms_elements.html" method="post" onsubmit="return false;">
                     <input type="hidden" id="idUpdate" />
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="cnameUpdate">药品名称</label>
+                        <label class="col-md-3 control-label" for="doctor_nameUpdate">医生ID</label>
                         <div class="col-md-7">
-                            <input class="form-control" type="text" id="cnameUpdate" name="cname" placeholder="请输入药品名称">
+                            <input class="form-control" type="text" id="doctor_idUpdate" name="doctor_id" disabled>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="caddrUpdate">药品价格</label>
+                        <label class="col-md-3 control-label" for="doctor_nameUpdate">医生姓名</label>
                         <div class="col-md-7">
-                            <input class="form-control" type="text" id="caddrUpdate" name="caddr" placeholder="请输入药品价格">
+                            <input class="form-control" type="text" id="doctor_nameUpdate" name="doctor_name" placeholder="请输入医生姓名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="doctor_passwordUpdate">医生密码</label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="password" id="doctor_passwordUpdate" name="doctor_password" placeholder="请输入医生密码">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" onclick="updateClass()">确认</button>
+                <button type="button" class="btn btn-primary" onclick="updateDoctor()">确认</button>
             </div>
         </div>
     </div>
@@ -198,9 +204,8 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>药品名称</th>
-            <th>药品价格</th>
+            <th>医生ID</th>
+            <th>医生姓名</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -209,12 +214,11 @@
         {{each data}}
         <tr>
             <!-- $value集合中的元素 - 表格中的一行数据 -->
-            <th scope="row">{{$value.medicine_id}}</th>
-            <td>{{$value.medicine_name}}</td>
-            <td>{{$value.medicine_price}}</td>
+            <th scope="row">{{$value.doctor_id}}</th>
+            <td>{{$value.doctor_name}}</td>
             <td>
-                <button type="button" class="btn btn-info btn-xs" onclick="showUpdateModal('{{$value.id}}')">修改</button>
-                <button type="button" class="btn btn-danger btn-xs" onclick="deleteClassById('{{$value.id}}')">删除</button>
+                <button type="button" class="btn btn-info btn-xs" onclick="showUpdateModal('{{$value.doctor_id}}')">修改</button>
+                <button type="button" class="btn btn-danger btn-xs" onclick="deleteDoctorById('{{$value.doctor_id}}')">删除</button>
             </td>
         </tr>
         {{/each}}
@@ -223,11 +227,11 @@
 </script>
 <script>
     //修改班级
-    function updateClass() {
+    function updateDoctor() {
         $.ajax({
-            url: 'admin/cls',
+            url: 'manger/doctor',
             type: 'PUT',
-            data: {id: $("#idUpdate").val(), cname: $("#cnameUpdate").val(), caddr: $("#caddrUpdate").val()},
+            data: {doctor_id: $("#doctor_idUpdate").val(), doctor_name: $("#doctor_nameUpdate").val(), doctor_password: $("#doctor_passwordUpdate").val()},
             dataType: 'JSON',
             success: function (resp) {
                 if(resp.code == 10000) {
@@ -235,7 +239,7 @@
                     //隐藏模态框
                     $("#updateModal").modal("hide");
                     //重新刷新表格
-                    selectAllClass();
+                    selectAllDoctor();
                 } else {
                     lightyear.notify(resp.msg, 'danger', 2000, 'mdi mdi-emoticon-sad', 'top', 'center');
                 }
@@ -247,32 +251,33 @@
     function showUpdateModal(id) {
         //根据ID查询当前班级的所有信息
         $.ajax({
-            url: `admin/cls/${id}`,
+            url: `manger/doctor/${id}`,
             type: 'GET',
             dataType: 'JSON',
             success: function (resp) {
-                $("#idUpdate").val(resp.data.id);
-                $("#cnameUpdate").val(resp.data.cname);
-                $("#caddrUpdate").val(resp.data.caddr);
+                $("#doctor_idUpdate").val(resp.data.doctor_id);
+                $("#doctor_nameUpdate").val(resp.data.doctor_name);
+                $("#doctor_passwordUpdate").val(resp.data.doctor_password);
                 $("#updateModal").modal("show");
             }
         })
     }
 
-    //添加班级
-    function addCls() {
+    //添加医生
+    function addDoctor() {
         $.ajax({
-            url: 'admin/cls',
+            url: 'manger/doctor',
             type: 'POST',
-            data: {cname: $("#cnameAdd").val(), caddr: $("#caddrAdd").val()},
+            data: $("#addForm").serialize(),
             dataType: 'JSON',
             success: function (resp) {
                 if(resp.code == 10000) {
                     lightyear.notify(resp.msg, 'success', 2000, 'mdi mdi-emoticon-happy', 'top', 'center');
-                    //隐藏模态框
-                    $("#addModal").modal("hide");
                     //重新刷新表格
-                    selectAllClass();
+                    selectByPage(1);
+
+                    $("#addModal").modal('hide');
+                    $("#addForm")[0].reset();
                 } else {
                     lightyear.notify(resp.msg, 'danger', 2000, 'mdi mdi-emoticon-sad', 'top', 'center');
                 }
@@ -286,7 +291,7 @@
     }
 
     //删除班级
-    function deleteClassById(id) {
+    function deleteDoctorById(id) {
         $.alert({
             title: '删除提示',
             content: '您确认要删除吗?',
@@ -297,7 +302,7 @@
                     action: function(){ //单击确认之后的操作
                         //发送ajax请求实现删除
                         $.ajax({
-                            url: `admin/cls/${id}`,
+                            url: `manger/doctor/${id}`,
                             type: 'DELETE',
                             dataType: 'JSON',
                             success: function (resp) {
@@ -305,7 +310,7 @@
                                 if(resp.code == 10000) {
                                     lightyear.notify(resp.msg, 'success', 2000, 'mdi mdi-emoticon-happy', 'top', 'center');
                                     //重新刷新表格
-                                    selectAllClass();
+                                    selectAllDoctor();
                                 } else {
                                     lightyear.notify(resp.msg, 'danger', 2000, 'mdi mdi-emoticon-sad', 'top', 'center');
                                 }
@@ -321,9 +326,9 @@
     }
 
     //获取所有的班级
-    function selectAllClass() {
+    function selectAllDoctor() {
         $.ajax({
-            url: 'admin/cls',
+            url: 'manger/doctor',
             type: 'GET',
             dataType: 'JSON',
             success: function (resp) {
@@ -363,7 +368,7 @@
         });
 
         //获取所有的班级
-        selectAll();
+        selectAllDoctor();
     })
 </script>
 </body>

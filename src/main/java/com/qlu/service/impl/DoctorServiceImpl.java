@@ -42,7 +42,7 @@ public class DoctorServiceImpl implements DoctorService {
         }
 
         Doctor doctor1 = doctorMapper.selectByName(doctor.getDoctor_name());
-        if(doctor1 != null & !doctor1.getDoctor_id().equals(doctor.getDoctor_id())) {
+        if (doctor1 != null && !doctor1.getDoctor_id().equals(doctor.getDoctor_id())) {
             throw new Exception("修改之后的医生名称和其他医生的名称相同，不允许修改");
         }
         return doctorMapper.update(doctor);
