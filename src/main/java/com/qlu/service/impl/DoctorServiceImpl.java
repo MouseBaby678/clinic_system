@@ -20,7 +20,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public int add(Doctor doctor) throws Exception {
         if(doctorMapper.selectByName(doctor.getDoctor_name()) != null) {
-            throw new Exception("新添加的班级名称和已经存在的班级名称重复，无法添加");
+            throw new Exception("新添加的医生名称和已经存在的医生名称重复，无法添加");
         }
         return doctorMapper.add(doctor);
     }
@@ -38,12 +38,12 @@ public class DoctorServiceImpl implements DoctorService {
     public int update(Doctor doctor) throws Exception {
         //判断被修改的班级是否存在
         if(doctorMapper.selectById(doctor.getDoctor_id()) == null) {
-            throw new Exception("被修改的班级不存在，无法修改~~~");
+            throw new Exception("被修改的医生不存在，无法修改~~~");
         }
 
         Doctor doctor1 = doctorMapper.selectByName(doctor.getDoctor_name());
         if(doctor1 != null & !doctor1.getDoctor_id().equals(doctor.getDoctor_id())) {
-            throw new Exception("修改之后的班级名称和其他班级的名称相同，不允许修改");
+            throw new Exception("修改之后的医生名称和其他医生的名称相同，不允许修改");
         }
         return doctorMapper.update(doctor);
     }
