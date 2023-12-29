@@ -36,7 +36,7 @@ public class MedicineServiceImpl implements MedicineService {
             throw new Exception("被修改的药品不存在，无法修改~~~");
         }
         Medicine m1 = medicineMapper.selectByName(m.getMedicine_name());
-        if (m1 != null & !m1.getMedicine_id().equals(m.getMedicine_id())){
+        if (m1 != null && !m1.getMedicine_id().equals(m.getMedicine_id())){
             throw new Exception("修改之后的药品名称和其他药品的名称相同，不允许修改");
         }
         return medicineMapper.update(m);

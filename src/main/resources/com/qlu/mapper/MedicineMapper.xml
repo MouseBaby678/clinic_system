@@ -5,7 +5,7 @@
         INSERT INTO `medicine`(`medicine_name`, `medicine_price`) VALUES(#{medicine_name}, #{medicine_price})
     </insert>
     <update id="update" parameterType="medicine">
-        UPDATE `medicine` SET `medicine_name`=#{medicine_name}, `medicine_price`=#{medicine_price} WHERE `id`=#{medicine_id}
+        UPDATE `medicine` SET `medicine_name`=#{medicine_name}, `medicine_price`=#{medicine_price} WHERE `medicine_id`=#{medicine_id}
     </update>
     <delete id="del">
         DELETE FROM `medicine` WHERE `medicine_id`=#{medicine_id}
