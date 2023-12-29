@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qlu.mapper.PatientMapper">
+    <insert id="add" parameterType="patient">
+        INSERT INTO `patient`(`patient_name`, `patient_age`,`patient_sex`) VALUES(#{patient_name}, #{patient_age},#{patient_sex})
+    </insert>
+    <update id="update" parameterType="patient">
+        UPDATE `patient` SET `patient_name`=#{patient_name},`patient_age`=#{patient_age},`patient_sex`=#{patient_sex} WHERE `patient_id`=#{patient_id}
+    </update>
+    <delete id="del">
+        DELETE FROM `patient` WHERE `patient_id`=#{patient_id}
+    </delete>
+    <select id="selectAll" resultType="patient">
+        SELECT * FROM `patient`
+    </select>
+    <select id="selectById" resultType="patient">
+        SELECT * FROM `patient` WHERE `patient_id`=#{patient_id}
+    </select>
+    <select id="selectByPname" resultType="patient">
+        SELECT * FROM `patient` WHERE `patient_name`=#{patient_name}
+    </select>
+</mapper>
