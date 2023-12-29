@@ -10,4 +10,12 @@ public interface DoctorMapper {
     Doctor selectById(@Param("doctor_id") Integer doctor_id);
 
     List<Doctor> selectAll();
+
+    int add(Doctor doctor);
+
+    int del(@Param("doctor_id") Integer doctor_id);
+
+    int update(Doctor doctor);
+
+    Doctor selectByName(@Param("doctor_name") String doctor_name);
 }
