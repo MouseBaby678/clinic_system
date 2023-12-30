@@ -98,8 +98,23 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-toolbar clearfix">
-                                <div class="toolbar-btn-action">
-                                    <button class="btn btn-primary m-r-5" onclick="showAddModal()"><i class="mdi mdi-plus"></i> 新增</button>
+                                <!-- 使用row和col-md-*来将按钮和搜索框放在同一行 -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="toolbar-btn-action">
+                                            <button class="btn btn-primary m-r-5" onclick="showAddModal()"><i class="mdi mdi-plus"></i> 新增</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="toolbar-search">
+                                            <input type="text" id="search_text" class="form-control" placeholder="请输入医生姓名">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="toolbar-search-button">
+                                            <button class="btn btn-primary" onclick="selectDoctorByName(document.getElementById('search_text').value)"><i class="mdi mdi-magnify"></i> 搜索</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -112,6 +127,8 @@
                 </div>
             </div>
         </main>
+
+
         <!--End 页面主要内容-->
     </div>
 </div>
@@ -325,7 +342,22 @@
         });
     }
 
-    //获取所有的班级
+    function selectDoctorByName(name) {
+        $.ajax({
+            url: 'manger/doctor/${name}',
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (resp) {
+                // console.log(resp);
+                //resp.data是返回的数据，将服务器返回的数据在模板中渲染
+                let html = template('all_class', {data: resp.data});
+                //将渲染完成的数据挂载在页面上
+                $('#all_class_div').html(html);
+            }
+        });
+    }
+
+    //获取所有的医生
     function selectAllDoctor() {
         $.ajax({
             url: 'manger/doctor',

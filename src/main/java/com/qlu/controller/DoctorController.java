@@ -20,6 +20,12 @@ public class DoctorController {
         return RespBean.ok("查询成功", doctor);
     }
 
+    @GetMapping("/{name}")
+    public RespBean selectByName(@PathVariable("name") String name) {
+        Doctor doctor = doctorService.selectByName(name);
+        return RespBean.ok("查询成功", doctor);
+    }
+
     @GetMapping()
     public RespBean selectAll() {
         List<Doctor> doctorList = doctorService.selectAll();
