@@ -46,6 +46,10 @@ public class MedicineServiceImpl implements MedicineService {
     public List<Medicine> selectAll() {
         return medicineMapper.selectAll();
     }
+    @Override
+    public List<Medicine> selectMedicineByName(String medicine_name){
+        return medicineMapper.selectMedicineByName(medicine_name);
+    }
 
     @Override
     public Medicine selectById(Integer medicine_id) {

@@ -98,8 +98,23 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-toolbar clearfix">
-                                <div class="toolbar-btn-action">
-                                    <button class="btn btn-primary m-r-5" onclick="showAddModal()"><i class="mdi mdi-plus"></i> 新增</button>
+                                <!-- 使用row和col-md-*来将按钮和搜索框放在同一行 -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="toolbar-btn-action">
+                                            <button class="btn btn-primary m-r-5" onclick="showAddModal()"><i class="mdi mdi-plus"></i> 新增</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="toolbar-search">
+                                            <input type="text" id="search_text" class="form-control" placeholder="请输入药品名称">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="toolbar-search-button">
+                                            <button class="btn btn-primary" onclick="selectByName(document.getElementById('search_text').value)"><i class="mdi mdi-magnify"></i> 搜索</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -370,6 +385,21 @@
         });
     }
 
+    // //根据名称查询
+    // function selectByName(medicine_name){
+    //     $.ajax({
+    //         url: 'manager/mdc/${medicine_name}',
+    //         type: 'GET',
+    //         dataType: 'JSON',
+    //         success: function (resp) {
+    //             //console.log(resp);
+    //             //resp.data是返回的数据，将服务器返回的数据在模板中渲染
+    //             let html = template('all_class', {data: resp.data});
+    //             //将渲染完成的数据挂载在页面上
+    //             $('#all_class_div').html(html);
+    //         }
+    //     });
+    // }
     //获取所有的班级
     function selectAll() {
         $.ajax({
@@ -399,8 +429,29 @@
             }
         })
     });
+    function selectByName() {
+        let searchTerm = $('#search_text').val(); // 获取查询关键字
+        $.ajax({
+            url: `manager/mdc/medicine/${searchTerm}`, // 后端接口路径
+            type: 'GET',
+            data: { medicine_name: searchTerm }, // 传递药品名称作为参数
+            dataType: 'JSON',
+            success: function(resp) {
+                    // 根据查询结果渲染页面
+                    let html = template('all_class', {data: resp.data});
+                    //将渲染完成的数据挂载在页面上
+                    $('#all_class_div').html(html);
+            },
+            error: function(err) {
+                // 处理错误情况
+                console.error('Error:', err);
+                selectByPage(1);
+            }
+        });
+    }
 
-    function selectByPage(pageNum, pageSize = 2) {
+
+    function selectByPage(pageNum, pageSize = 5) {
         $.ajax({
             url: 'manager/mdc',
             type: 'GET',

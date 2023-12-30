@@ -16,4 +16,5 @@ public interface MedicineService {
     Medicine selectById(Integer medicine_id);
     //根据名称查询
     Medicine selectByName(String medicine_name);
+    List<Medicine> selectMedicineByName(String medicine_name);
 }
