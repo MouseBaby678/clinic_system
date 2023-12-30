@@ -11,5 +11,5 @@ public interface PatientMapper {
     List<Patient> selectAll();
     Patient selectById(Integer patient_id);
 
-    Patient selectByPname(String patient_name);
+    List<Patient> selectByPname(String patient_name);
 }
