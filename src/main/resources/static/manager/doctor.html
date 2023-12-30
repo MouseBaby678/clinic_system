@@ -246,7 +246,7 @@
     //修改班级
     function updateDoctor() {
         $.ajax({
-            url: 'manger/doctor',
+            url: 'manager/doctor',
             type: 'PUT',
             data: {doctor_id: $("#doctor_idUpdate").val(), doctor_name: $("#doctor_nameUpdate").val(), doctor_password: $("#doctor_passwordUpdate").val()},
             dataType: 'JSON',
@@ -268,7 +268,7 @@
     function showUpdateModal(id) {
         //根据ID查询当前班级的所有信息
         $.ajax({
-            url: `manger/doctor/id/${id}`,
+            url: `manager/doctor/${id}`,
             type: 'GET',
             dataType: 'JSON',
             success: function (resp) {
@@ -283,7 +283,7 @@
     //添加医生
     function addDoctor() {
         $.ajax({
-            url: 'manger/doctor',
+            url: 'manager/doctor',
             type: 'POST',
             data: $("#addForm").serialize(),
             dataType: 'JSON',
@@ -319,7 +319,7 @@
                     action: function(){ //单击确认之后的操作
                         //发送ajax请求实现删除
                         $.ajax({
-                            url: `manger/doctor/${id}`,
+                            url: `manager/doctor/${id}`,
                             type: 'DELETE',
                             dataType: 'JSON',
                             success: function (resp) {
@@ -344,7 +344,7 @@
 
     function selectDoctorByName(name) {
         $.ajax({
-            url: `manger/doctor/name/${name}`,
+            url: `manager/doctor/name/${name}`,
             type: 'GET',
             dataType: 'JSON',
             success: function (resp) {
@@ -354,6 +354,11 @@
                 let html = template('all_class', {data: resp.data});
                 //将渲染完成的数据挂载在页面上
                 $('#all_class_div').html(html);
+            },
+            error: function(err) {
+                // 处理错误情况
+                console.error('Error:', err);
+                selectAllDoctor();
             }
         });
     }
@@ -361,7 +366,7 @@
     //获取所有的医生
     function selectAllDoctor() {
         $.ajax({
-            url: 'manger/doctor',
+            url: 'manager/doctor',
             type: 'GET',
             dataType: 'JSON',
             success: function (resp) {

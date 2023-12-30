@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/manger/doctor")
+@RequestMapping("/manager/doctor")
 public class DoctorController {
 
     @Autowired
     private DoctorService doctorService;
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public RespBean selectById(@PathVariable("id") Integer id) {
         Doctor doctor = doctorService.selectById(id);
         return RespBean.ok("查询成功", doctor);
@@ -25,6 +25,7 @@ public class DoctorController {
         List<Doctor> doctor = doctorService.selectByName(name);
         return RespBean.ok("查询成功", doctor);
     }
+
 
     @GetMapping()
     public RespBean selectAll() {
