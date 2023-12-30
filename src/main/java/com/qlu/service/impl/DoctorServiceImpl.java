@@ -41,10 +41,7 @@ public class DoctorServiceImpl implements DoctorService {
             throw new Exception("被修改的医生不存在，无法修改~~~");
         }
 
-        Doctor doctor1 = doctorMapper.selectByName(doctor.getDoctor_name());
-        if (doctor1 != null && !doctor1.getDoctor_id().equals(doctor.getDoctor_id())) {
-            throw new Exception("修改之后的医生名称和其他医生的名称相同，不允许修改");
-        }
+
         return doctorMapper.update(doctor);
     }
 
@@ -54,7 +51,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor selectByName(String name) {
+    public List<Doctor> selectByName(String name) {
         return doctorMapper.selectByName(name);
     }
 }

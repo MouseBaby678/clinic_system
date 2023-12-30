@@ -17,5 +17,5 @@ public interface DoctorMapper {
 
     int update(Doctor doctor);
 
-    Doctor selectByName(@Param("doctor_name") String doctor_name);
+    List<Doctor> selectByName(@Param("doctor_name") String doctor_name);
 }

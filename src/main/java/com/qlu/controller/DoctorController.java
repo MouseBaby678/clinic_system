@@ -22,7 +22,7 @@ public class DoctorController {
 
     @GetMapping("/name/{name}")
     public RespBean selectByName(@PathVariable("name") String name) {
-        Doctor doctor = doctorService.selectByName(name);
+        List<Doctor> doctor = doctorService.selectByName(name);
         return RespBean.ok("查询成功", doctor);
     }
 
