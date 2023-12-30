@@ -12,10 +12,11 @@ public class WebConfig implements WebMvcConfigurer {
     private LoginInterceptor loginInterceptor;
 
     public void addInterceptors(InterceptorRegistry registry) {
-        //配置登录的拦截器，让其拦截所有的一/admin开始的路径
+        //配置登录的拦截器，让其拦截所有的manager或doctor开始的路径
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/manager/**");
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/doctor/**");
     }
+
 }

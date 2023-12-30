@@ -1,5 +1,7 @@
 package com.qlu.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.qlu.bean.Medicine;
 import com.qlu.bean.RespBean;
 import com.qlu.service.MedicineService;
@@ -14,16 +16,16 @@ public class MedicineController {
     @Autowired
     private MedicineService medicineService;
     //分页
-    //@GetMapping
-    //public RespBean selectByPage(Integer pageNum, Integer pageSize) {
-    //    //1. 设置分页信息（页码，每页条数）
-    //    PageHelper.startPage(pageNum, pageSize);
-    //    //2. 查询
-    //    List<Medicine> medicineList = medicineService.selectAll();
-    //    //3. 创建保存分页信息的对象
-    //    PageInfo<Medicine> pageInfo = new PageInfo<>(medicineList);
-    //    return RespBean.ok("查询成功", pageInfo);
-    //}
+    @GetMapping
+    public RespBean selectByPage(Integer pageNum, Integer pageSize) {
+        //1. 设置分页信息（页码，每页条数）
+        PageHelper.startPage(pageNum, pageSize);
+        //2. 查询
+        List<Medicine> medicineList = medicineService.selectAll();
+        //3. 创建保存分页信息的对象
+        PageInfo<Medicine> pageInfo = new PageInfo<>(medicineList);
+        return RespBean.ok("查询成功", pageInfo);
+    }
 //添加
     @PostMapping
     public RespBean add(Medicine m) throws Exception {
@@ -43,12 +45,12 @@ public class MedicineController {
         return RespBean.ok("修改成功");
     }
     //查询所有
-    @GetMapping
-    public RespBean selectAll() {
-        List<Medicine> medicineList = medicineService.selectAll();
-
-        return RespBean.ok("查询成功", medicineList);
-    }
+    //@GetMapping
+    //public RespBean selectAll() {
+    //    List<Medicine> medicineList = medicineService.selectAll();
+    //
+    //    return RespBean.ok("查询成功", medicineList);
+    //}
     //根据ID查询
     @GetMapping("/{medicine_id}")
     public RespBean selectById(@PathVariable("medicine_id") Integer medicine_id) {

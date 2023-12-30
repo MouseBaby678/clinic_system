@@ -206,7 +206,7 @@
         </thead>
         <tbody>
         <!-- data被遍历的集合 -->
-        {{each data}}
+        {{each data.list}}
         <tr>
             <!-- $value集合中的元素 - 表格中的一行数据 -->
             <th scope="row">{{$value.medicine_id}}</th>
@@ -220,25 +220,53 @@
         {{/each}}
         </tbody>
     </table>
-    <!--<nav class="text-center">-->
-    <!--    <ul class="pagination">-->
-    <!--        <li class="disabled">-->
-    <!--            <a href="#!">-->
-    <!--                <span><i class="mdi mdi-chevron-left"></i></span>-->
-    <!--            </a>-->
-    <!--        </li>-->
-    <!--        <li class="active"><a href="#">1</a></li>-->
-    <!--        <li><a href="#!">2</a></li>-->
-    <!--        <li><a href="#!">3</a></li>-->
-    <!--        <li><a href="#!">4</a></li>-->
-    <!--        <li><a href="#!">5</a></li>-->
-    <!--        <li>-->
-    <!--            <a href="#!">-->
-    <!--                <span><i class="mdi mdi-chevron-right"></i></span>-->
-    <!--            </a>-->
-    <!--        </li>-->
-    <!--    </ul>-->
-    <!--</nav>-->
+    <nav class="text-center">
+        <ul class="pagination pagination-circle">
+            <!--
+              1. 单击跳转到上一页
+              2. 如果每页上一页了，就不能被点击
+             -->
+            {{if data.hasPreviousPage == true}}
+            <li>
+                <a href="javascript:void(0);" onclick="selectByPage('{{data.pageNum - 1}}')">
+                    <span><i class="mdi mdi-chevron-left"></i></span>
+                </a>
+            </li>
+            {{else}}
+            <li class="disabled">
+                <a href="javascript:void(0);">
+                    <span><i class="mdi mdi-chevron-left"></i></span>
+                </a>
+            </li>
+            {{/if}}
+
+            <!--
+              1. 单击跳转到特定页
+              2. 如果当前在某一页，那么它的页码就不能被点击
+             -->
+            {{each data.navigatepageNums}}
+            {{if data.pageNum != $value}}
+            <li><a href="javascript:void(0);" onclick="selectByPage('{{$value}}')">{{$value}}</a></li>
+            {{else}}
+            <li class="active"><a href="javascript:void(0);">{{$value}}</a></li>
+            {{/if}}
+            {{/each}}
+
+            {{if data.hasNextPage == true}}
+            <li>
+                <a href="javascript:void(0);" onclick="selectByPage('{{data.pageNum + 1}}')">
+                    <span><i class="mdi mdi-chevron-right"></i></span>
+                </a>
+            </li>
+            {{else}}
+            <li class="disabled">
+                <a href="javascript:void(0);">
+                    <span><i class="mdi mdi-chevron-right"></i></span>
+                </a>
+            </li>
+            {{/if}}
+        </ul>
+    </nav>
 </script>
 <script>
     //修改班级
@@ -254,7 +282,8 @@
                     //隐藏模态框
                     $("#updateModal").modal("hide");
                     //重新刷新表格
-                    selectAll();
+                    //selectAll();
+                    selectByPage(1);
                 } else {
                     lightyear.notify(resp.msg, 'danger', 2000, 'mdi mdi-emoticon-sad', 'top', 'center');
                 }
@@ -291,7 +320,8 @@
                     //隐藏模态框
                     $("#addModal").modal("hide");
                     //重新刷新表格
-                    selectAll();
+                    //selectAll();
+                    selectByPage(1);
                 } else {
                     lightyear.notify(resp.msg, 'danger', 2000, 'mdi mdi-emoticon-sad', 'top', 'center');
                 }
@@ -324,7 +354,8 @@
                                 if(resp.code == 10000) {
                                     lightyear.notify(resp.msg, 'success', 2000, 'mdi mdi-emoticon-happy', 'top', 'center');
                                     //重新刷新表格
-                                    selectAll();
+                                    // selectAll();
+                                    selectByPage(1);
                                 } else {
                                     lightyear.notify(resp.msg, 'danger', 2000, 'mdi mdi-emoticon-sad', 'top', 'center');
                                 }
@@ -369,6 +400,22 @@
         })
     });
 
+    function selectByPage(pageNum, pageSize = 2) {
+        $.ajax({
+            url: 'manager/mdc',
+            type: 'GET',
+            data: {pageNum: pageNum, pageSize: pageSize},
+            dataType: 'JSON',
+            success: function (resp) {
+                //resp.data是返回的数据，将服务器返回的数据在模板中渲染
+                let html = template('all_class', {data: resp.data});
+                //将渲染完成的数据挂载在页面上
+                $('#all_class_div').html(html);
+            }
+        })
+    }
+
+
     //页面加载时发送Ajax请求
     $(function () {
         //获取用户信息，并在头部设置
@@ -382,7 +429,8 @@
         });
 
         //获取所有的班级
-        selectAll();
+        //selectAll();
+        selectByPage(1);
     })
 </script>
 </body>
