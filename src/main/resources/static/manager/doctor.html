@@ -268,7 +268,7 @@
     function showUpdateModal(id) {
         //根据ID查询当前班级的所有信息
         $.ajax({
-            url: `manger/doctor/${id}`,
+            url: `manger/doctor/id/${id}`,
             type: 'GET',
             dataType: 'JSON',
             success: function (resp) {
@@ -291,7 +291,7 @@
                 if(resp.code == 10000) {
                     lightyear.notify(resp.msg, 'success', 2000, 'mdi mdi-emoticon-happy', 'top', 'center');
                     //重新刷新表格
-                    selectByPage(1);
+                    selectAllDoctor();
 
                     $("#addModal").modal('hide');
                     $("#addForm")[0].reset();
@@ -344,7 +344,7 @@
 
     function selectDoctorByName(name) {
         $.ajax({
-            url: 'manger/doctor/${name}',
+            url: `manger/doctor/name/${name}`,
             type: 'GET',
             dataType: 'JSON',
             success: function (resp) {

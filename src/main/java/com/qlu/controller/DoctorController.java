@@ -14,13 +14,13 @@ public class DoctorController {
 
     @Autowired
     private DoctorService doctorService;
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public RespBean selectById(@PathVariable("id") Integer id) {
         Doctor doctor = doctorService.selectById(id);
         return RespBean.ok("查询成功", doctor);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/name/{name}")
     public RespBean selectByName(@PathVariable("name") String name) {
         Doctor doctor = doctorService.selectByName(name);
         return RespBean.ok("查询成功", doctor);
