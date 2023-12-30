@@ -7,7 +7,7 @@ import java.util.List;
 @Service
 public interface DoctorService {
     Doctor selectById(Integer id);
-    Doctor selectByName(String name);
+    List<Doctor> selectByName(String name);
 
     List<Doctor> selectAll();
 

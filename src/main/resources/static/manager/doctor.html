@@ -348,6 +348,7 @@
             type: 'GET',
             dataType: 'JSON',
             success: function (resp) {
+
                 // console.log(resp);
                 //resp.data是返回的数据，将服务器返回的数据在模板中渲染
                 let html = template('all_class', {data: resp.data});
