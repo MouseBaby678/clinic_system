@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="js/jconfirm/jquery-confirm.min.css">
 </head>
 
-<body data-theme="dark">
+<body data-theme="white">
 <div class="lyear-layout-web">
     <div class="lyear-layout-container">
         <!--左侧导航-->
@@ -31,7 +31,7 @@
 
                 <nav class="sidebar-main">
                     <ul class="nav nav-drawer">
-                        <li class="nav-item active"> <a href="index.html"><i class="mdi mdi-home"></i> 系统首页</a> </li>
+                        <li class="nav-item active"> <a href="doctor/index.html"><i class="mdi mdi-home"></i> 系统首页</a> </li>
                         <li class="nav-item nav-item-has-subnav">
                             <a href="javascript:void(0)"><i class="mdi mdi-account-circle"></i> 病人管理</a>
                             <ul class="nav nav-subnav">
@@ -98,9 +98,25 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-toolbar clearfix">
-                                <div class="toolbar-btn-action">
-                                    <button class="btn btn-primary m-r-5" onclick="showAddModal()"><i class="mdi mdi-plus"></i> 新增</button>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                                                <div class="toolbar-btn-action">
+                                                                    <button class="btn btn-primary m-r-5" onclick="showAddModal()"><i class="mdi mdi-plus"></i> 新增</button>
+                                                                </div>
+                                    </div>
+
+                                                            <div class="col-md-5">
+                                                                <div class="toolbar-search">
+                                                                    <input type="text" id="search_text" class="form-control" placeholder="请输入病人姓名">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <div class="toolbar-search-button">
+                                                                    <button class="btn btn-primary" onclick="selectPatientByName(document.getElementById('search_text').value)"><i class="mdi mdi-magnify"></i> 搜索</button>
+                                                                </div>
+                                                            </div>
                                 </div>
+
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive" id="all_patient_div">
@@ -171,12 +187,7 @@
             <div class="modal-body">
                 <form id="updateForm" class="form-horizontal" action="lyear_forms_elements.html" method="post" onsubmit="return false;">
                     <input type="hidden" id="idUpdate" />
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="patient_nameUpdate">病人ID</label>
-                        <div class="col-md-7">
-                            <input class="form-control" type="text" id="patient_idUpdate" name="patient_id" disabled>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="patient_nameUpdate">病人姓名</label>
                         <div class="col-md-7">
@@ -263,7 +274,7 @@
         $.ajax({
             url: 'doctor/pat',
             type: 'PUT',
-            data: {patient_id: $("#patient_idUpdate").val(), patient_name: $("#patient_nameUpdate").val(), patient_age: $("#patient_ageUpdate").val(),patient_sex:$("input[name='patient_sexUpdate']:checked").val()},
+            data: {patient_id: $("#idUpdate").val(), patient_name: $("#patient_nameUpdate").val(), patient_age: $("#patient_ageUpdate").val(),patient_sex:$("input[name='patient_sexUpdate']:checked").val()},
             dataType: 'JSON',
             success: function (resp) {
                 if(resp.code == 10000) {
@@ -288,13 +299,14 @@
             type: 'GET',
             dataType: 'JSON',
             success: function (resp) {
-                $("#patient_idUpdate").val(resp.data.patient_id);
+
+                $("#idUpdate").val(resp.data.patient_id);
                 $("#patient_nameUpdate").val(resp.data.patient_name);
                 $("#patient_ageUpdate").val(resp.data.patient_age);
                 if (resp.data.patient_sex == 'm') {
-                    $("#updateForm input[name='patient_sex'][value='m']").attr('checked', true);
+                    $("#updateForm input[name='patient_sexUpdate'][value='m']").attr('checked', true);
                 } else {
-                    $("#updateForm input[name='patient_sex'][value='f']").attr('checked', true);
+                    $("#updateForm input[name='patient_sexUpdate'][value='f']").attr('checked', true);
                 }
                 $("#updateModal").modal("show");
             }
@@ -408,6 +420,28 @@
 
         selectAllPatient();
     })
+    function selectPatientByName(name) {
+
+        $.ajax({
+            url: `doctor/pat/name/${name}`,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (resp) {
+
+
+                // console.log(resp);
+                //resp.data是返回的数据，将服务器返回的数据在模板中渲染
+                let html = template('all_patient', {data: resp.data});
+                //将渲染完成的数据挂载在页面上
+                $('#all_patient_div').html(html);
+            },
+            error: function(err) {
+                // 处理错误情况
+
+                selectAllPatient()
+            }
+        });
+    }
 </script>
 </body>
 </html>

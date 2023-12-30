@@ -10,4 +10,5 @@ public interface PatientService {
     int update(Patient p) throws Exception;
     List<Patient> selectAll();
     Patient selectById(Integer patient_id);
+    List<Patient> selectByPname(String patient_name);
 }

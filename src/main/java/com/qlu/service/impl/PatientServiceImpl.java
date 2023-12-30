@@ -15,9 +15,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public int add(Patient p) throws Exception {
-        if (patientMapper.selectByPname(p.getPatient_name())!=null){
-            throw new Exception("该病人已经存在，无需重复添加");
-        }
+
         return patientMapper.add(p);
     }
 
@@ -50,4 +48,11 @@ public class PatientServiceImpl implements PatientService {
     public Patient selectById(Integer patient_id) {
         return patientMapper.selectById(patient_id);
     }
+
+    @Override
+    public List<Patient> selectByPname(String patient_name) {
+        return patientMapper.selectByPname(patient_name);
+    }
+
+
 }

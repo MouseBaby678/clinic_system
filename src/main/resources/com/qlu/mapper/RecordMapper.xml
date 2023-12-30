@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qlu.mapper.RecordMapper">
+    <resultMap id="recordMap" type="record">
+        <!--
+            1. column列名 property属性名
+            2. 如果列名和属性名完全一致，id标签和result标签可以不用写
+            3. 如果一个列映射到了多个属性，那么id标签和result标签不能省略
+         -->
+        <!--<id column="id" property="id" />-->
+        <!--<result column="snum" property="snum" />-->
+        <!--<result column="sname" property="sname" />-->
+        <!--<result column="sage" property="sage" />-->
+        <!--<result column="sgender" property="sgender" />-->
+        <!--<result column="stel" property="stel" />-->
+        <!--<result column="saddr" property="saddr" />-->
+        <result column="patient_id" property="patient_id" />
+        <!-- 在一对一映射时使用 -->
+        <association column="patient_id" property="patient" javaType="patient" select="com.qlu.mapper.PatientMapper.selectById" />
+    </resultMap>
+    <insert id="add" parameterType="record">
+      INSERT INTO `record`(`patient_id`,`record_description`) VALUES (#{patient_id},#{record_description})
+    </insert>
+    <update id="update" parameterType="record">
+    UPDATE `record` SET `record_description`=#{record_description} WHERE `record_id`=#{record_id}
+    </update>
+    <delete id="del">
+    DELETE FROM `record` WHERE `record_id`=#{record_id}
+    </delete>
+    <select id="selectAll" resultMap="recordMap">
+    SELECT * FROM `record`
+    </select>
+    <select id="selectById" resultMap="recordMap">
+    SELECT *FROM `record` WHERE `record_id`=#{record_id}
+    </select>
+    <select id="selectByPid" resultMap="recordMap">
+        SELECT p.patient_name, p.patient_age, p.patient_sex
+        FROM record r
+                 INNER JOIN patient p ON r.patient_id = p.patient_id
+        WHERE r.patient_id = #{patient_id};
+    </select>
+
+</mapper>

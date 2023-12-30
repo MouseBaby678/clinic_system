@@ -11,4 +11,6 @@ public class Record {
     private Integer record_id;
     private Integer patient_id;
     private  String record_description;
+    private Patient patient;
+
 }

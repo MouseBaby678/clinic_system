@@ -1,5 +1,6 @@
 package com.qlu.controller;
 
+import com.qlu.bean.Doctor;
 import com.qlu.bean.Patient;
 import com.qlu.bean.RespBean;
 import com.qlu.mapper.PatientMapper;
@@ -43,6 +44,11 @@ public class PatientController {
     public RespBean selectById(@PathVariable("id")Integer patient_id){
        Patient p = patientService.selectById(patient_id);
         return RespBean.ok("chaxunchenggong",p);
+    }
+    @GetMapping("/name/{name}")
+    public RespBean selectByPname(@PathVariable("name") String name) {
+        List<Patient> p = patientService.selectByPname(name);
+        return RespBean.ok("查询成功", p);
     }
 
 }
