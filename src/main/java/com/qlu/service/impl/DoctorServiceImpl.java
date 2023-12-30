@@ -19,9 +19,6 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public int add(Doctor doctor) throws Exception {
-        if(doctorMapper.selectByName(doctor.getDoctor_name()) != null) {
-            throw new Exception("新添加的医生名称和已经存在的医生名称重复，无法添加");
-        }
         return doctorMapper.add(doctor);
     }
 
