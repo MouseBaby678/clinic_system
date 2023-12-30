@@ -3,6 +3,7 @@ package com.qlu.mapper;
 import com.qlu.bean.Doctor;
 import com.qlu.bean.Medicine;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -18,5 +19,6 @@ public interface MedicineMapper {
     Medicine selectById(Integer medicine_id);
     //根据班级名称查询
     Medicine selectByName(String medicine_name);
+    List<Medicine> selectMedicineByName(String medicine_name);
 
 }

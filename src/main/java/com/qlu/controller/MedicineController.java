@@ -2,6 +2,7 @@ package com.qlu.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.qlu.bean.Doctor;
 import com.qlu.bean.Medicine;
 import com.qlu.bean.RespBean;
 import com.qlu.service.MedicineService;
@@ -26,7 +27,16 @@ public class MedicineController {
         PageInfo<Medicine> pageInfo = new PageInfo<>(medicineList);
         return RespBean.ok("查询成功", pageInfo);
     }
-//添加
+    //根据药品名称查询
+// 根据药品名称查询
+    @GetMapping("/medicine/{medicine_name}")
+    public RespBean selectByName(@PathVariable("medicine_name") String medicineName) {
+        List<Medicine> medicine = medicineService.selectMedicineByName(medicineName);
+        PageInfo<Medicine> pageInfo = new PageInfo<>(medicine);
+        return RespBean.ok("查询成功", pageInfo);
+    }
+
+    //添加
     @PostMapping
     public RespBean add(Medicine m) throws Exception {
         medicineService.add(m);

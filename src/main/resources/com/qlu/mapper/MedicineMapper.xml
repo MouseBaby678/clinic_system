@@ -19,4 +19,7 @@
     <select id="selectByName" resultType="medicine">
         SELECT * FROM `medicine` WHERE `medicine_name`=#{medicine_name}
     </select>
+    <select id="selectMedicineByName" resultType="medicine">
+        SELECT * FROM `medicine` WHERE `medicine_name`=#{medicine_name}
+    </select>
 </mapper>
